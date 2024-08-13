@@ -11,6 +11,7 @@ public enum ErrorCode {
     //ForbiddenException
 
     //NotFoundException
+    TODO_NOT_FOUND("4040","TODO를 찾을 수 없습니다."),
 
     //ConflictException
 
