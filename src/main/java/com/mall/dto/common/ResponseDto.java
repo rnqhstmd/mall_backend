@@ -1,4 +1,4 @@
-package com.mall.dto.response;
+package com.mall.dto.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
