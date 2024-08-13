@@ -32,14 +32,13 @@ public class TodoService {
     }
 
     public TodoDto get(UUID tno) {
-        Todo todo = todoRepository.findById(tno).orElseThrow(() -> new NotFoundException(ErrorCode.TODO_NOT_FOUND));
+        Todo todo = findExistingTodo(tno);
         TodoDto dto = modelMapper.map(todo, TodoDto.class);
         return dto;
     }
 
     public void modify(UUID tno, TodoDto todoDto) {
-        Todo todo = todoRepository.findById(tno)
-                .orElseThrow(() -> new NotFoundException(ErrorCode.TODO_NOT_FOUND));
+        Todo todo = findExistingTodo(tno);
 
         todo.changeTitle(todoDto.getTitle());
         todo.changeDueDate(todoDto.getDueDate());
@@ -48,9 +47,13 @@ public class TodoService {
         todoRepository.save(todo);
     }
 
-    public void remove(UUID tno) {
-        Todo todo = todoRepository.findById(tno)
+    private Todo findExistingTodo(UUID tno) {
+        return todoRepository.findById(tno)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.TODO_NOT_FOUND));
+    }
+
+    public void remove(UUID tno) {
+        Todo todo = findExistingTodo(tno);
         todoRepository.deleteById(todo.getId());
     }
 
