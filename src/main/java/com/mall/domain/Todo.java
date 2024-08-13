@@ -23,4 +23,14 @@ public class Todo extends BaseEntity {
     private boolean complete;
     @Column(nullable = false)
     private LocalDate dueDate;
+
+    public void changeTitle(String title){
+        this.title = title;
+    }
+    public void changeComplete(boolean complete){
+        this.complete = complete;
+    }
+    public void changeDueDate(LocalDate dueDate){
+        this.dueDate = dueDate;
+    }
 }

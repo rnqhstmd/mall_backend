@@ -1,6 +1,6 @@
 package com.mall.exception.handler;
 
-import com.mall.dto.response.ErrorResponseDto;
+import com.mall.dto.common.ErrorResponseDto;
 import com.mall.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static com.mall.dto.response.ErrorResponseDto.res;
+import static com.mall.dto.common.ErrorResponseDto.res;
 
 @Slf4j
 @RestControllerAdvice
