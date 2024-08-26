@@ -40,6 +40,8 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'//MySQL
 
 	implementation 'org.modelmapper:modelmapper:3.1.1'//ModelMapper
+
+	implementation 'org.springframework.boot:spring-boot-starter-security' //Spring Security
 }
 
 tasks.named('test') {
