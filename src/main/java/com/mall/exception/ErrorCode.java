@@ -13,7 +13,8 @@ public enum ErrorCode {
 
     //NotFoundException
     TODO_NOT_FOUND("4040","TODO를 찾을 수 없습니다."),
-
+    FILE_NOT_FOUND("4041","파일을 찾을 수 없습니다."),
+    PRODUCT_NOT_FOUND("4042","상품을 찾을 수 없습니다."),
     //ConflictException
 
     //ValidationException

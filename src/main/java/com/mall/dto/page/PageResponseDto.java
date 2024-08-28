@@ -38,4 +38,23 @@ public class PageResponseDto<E> {
         this.totalPage = this.pageNumList.size();
         this.current = pageRequestDTO.getPage();
     }
+
+    public static class PageResponseDtoBuilder<E> {
+        public PageResponseDto<E> build() {
+            int end = (int) (Math.ceil(this.pageRequestDTO.getPage() / 10.0)) * 10;
+            int start = end - 9;
+            int last = (int) (Math.ceil((this.totalCount / (double) this.pageRequestDTO.getSize())));
+            end = Math.min(end, last);
+
+            boolean prev = start > 1;
+            boolean next = this.totalCount > end * this.pageRequestDTO.getSize();
+            List<Integer> pageNumList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
+            int totalPage = pageNumList.size();
+            int current = this.pageRequestDTO.getPage();
+            int prevPage = prev ? start - 1 : -1;
+            int nextPage = next ? end + 1 : -1;
+
+            return new PageResponseDto<>(dtoList, pageNumList, pageRequestDTO, prev, next, (int) totalCount, prevPage, nextPage, totalPage, current);
+        }
+    }
 }
