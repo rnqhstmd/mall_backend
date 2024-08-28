@@ -1,6 +1,7 @@
 package com.mall.config;
 
 import com.mall.security.filter.JwtCheckFilter;
+import com.mall.security.handler.CustomAccessDeniedHandler;
 import com.mall.security.handler.LoginApiFailHandler;
 import com.mall.security.handler.LoginApiSuccessHandler;
 import jakarta.persistence.Table;
@@ -43,6 +44,8 @@ public class CustomSecurityConfig {
             config.successHandler(new LoginApiSuccessHandler());
             config.failureHandler(new LoginApiFailHandler());
         });
+
+        httpSecurity.exceptionHandling(config -> config.accessDeniedHandler(new CustomAccessDeniedHandler()));
 
         httpSecurity.addFilterBefore(new JwtCheckFilter(), UsernamePasswordAuthenticationFilter.class); // JWT 체크
         return httpSecurity.build();
