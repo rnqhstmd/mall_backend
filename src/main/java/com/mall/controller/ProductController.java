@@ -1,6 +1,8 @@
 package com.mall.controller;
 
 import com.mall.dto.common.ResponseDto;
+import com.mall.dto.page.PageRequestDto;
+import com.mall.dto.page.PageResponseDto;
 import com.mall.dto.product.ProductDto;
 import com.mall.service.ProductService;
 import com.mall.util.FileUtil;
@@ -9,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,6 +42,13 @@ public class ProductController {
     public ResponseEntity<ResponseDto<Resource>> getFile(@PathVariable String fileName) {
         Resource resource = fileUtil.getFile(fileName);
         return new ResponseEntity<>(ResponseDto.res(HttpStatus.OK, "파일 불러오기 완료", resource), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @GetMapping("/list")
+    public ResponseEntity<ResponseDto<PageResponseDto<ProductDto>>> list(PageRequestDto pageRequestDto) {
+        PageResponseDto<ProductDto> list = productService.getList(pageRequestDto);
+        return new ResponseEntity<>(ResponseDto.res(HttpStatus.OK, "Product 전체 조회 완료", list), HttpStatus.OK);
     }
 
     @GetMapping("/{productId}")
