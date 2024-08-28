@@ -2,6 +2,7 @@ package com.mall.controller;
 
 import com.mall.dto.common.ResponseDto;
 import com.mall.dto.product.ProductDto;
+import com.mall.service.ProductService;
 import com.mall.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -20,6 +22,7 @@ import java.util.Map;
 @RequestMapping("/products")
 public class ProductController {
     private final FileUtil fileUtil;
+    private final ProductService productService;
 
     @PostMapping
     public ResponseEntity<ResponseDto<Map<String, String>>> register(ProductDto productDto) {
@@ -28,7 +31,7 @@ public class ProductController {
         ProductDto.builder()
                 .uploadFileNames(uploadFileNames)
                 .build();
-        log.info(uploadFileNames.toString());
+        productService.register(productDto);
         return new ResponseEntity<>(ResponseDto.res(HttpStatus.CREATED, "Product 생성 완료"), HttpStatus.CREATED);
     }
 
@@ -36,5 +39,11 @@ public class ProductController {
     public ResponseEntity<ResponseDto<Resource>> getFile(@PathVariable String fileName) {
         Resource resource = fileUtil.getFile(fileName);
         return new ResponseEntity<>(ResponseDto.res(HttpStatus.OK, "파일 불러오기 완료", resource), HttpStatus.OK);
+    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<ResponseDto<ProductDto>> read(@PathVariable UUID productId) {
+        ProductDto productDto = productService.getProductById(productId);
+        return new ResponseEntity<>(ResponseDto.res(HttpStatus.OK, "Product 단건 조회 완료", productDto), HttpStatus.OK);
     }
 }
