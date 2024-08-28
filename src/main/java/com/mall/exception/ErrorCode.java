@@ -10,7 +10,7 @@ public enum ErrorCode {
     EXPIRED_TOKEN("4010","만료된 토큰입니다."),
     INVALID_TOKEN("4011", "유효하지 않은 토큰입니다."),
     //ForbiddenException
-
+    ACCESS_DENIED("4030","접근 권한이 없습니다."),
     //NotFoundException
     TODO_NOT_FOUND("4040","TODO를 찾을 수 없습니다."),
     FILE_NOT_FOUND("4041","파일을 찾을 수 없습니다."),
