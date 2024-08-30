@@ -15,6 +15,8 @@ public enum ErrorCode {
     TODO_NOT_FOUND("4040","TODO를 찾을 수 없습니다."),
     FILE_NOT_FOUND("4041","파일을 찾을 수 없습니다."),
     PRODUCT_NOT_FOUND("4042","상품을 찾을 수 없습니다."),
+    CART_ITEM_NOT_FOUND("4043","장바구니 아이템을 찾을 수 없습니다."),
+    MEMBER_NOT_FOUND("4044","존재하지 않는 사용자입니다."),
     //ConflictException
 
     //ValidationException
